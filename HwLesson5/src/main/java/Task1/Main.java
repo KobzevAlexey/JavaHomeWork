@@ -74,7 +74,7 @@ public class Main {
         }
     }
 
-    static void back_step(int[][] map, LinkedList queue, int x, int y, int present_step) {
+    static void backStep(int[][] map, LinkedList queue, int x, int y, int present_step) {
         if (x > 0 && map[x - 1][y] == present_step - 1) {
             map[x - 1][y] = -5;
             queue.add((x - 1) * 1000 + y);
@@ -97,31 +97,31 @@ public class Main {
         pprint(map);
         Scanner in = new Scanner(System.in);
         System.out.print("Input start row: ");
-        int start_row = in.nextInt();
+        int startRow = in.nextInt();
         System.out.print("Input start column: ");
-        int start_column = in.nextInt();
+        int startColumn = in.nextInt();
         System.out.print("Input end row: ");
-        int end_row = in.nextInt();
+        int endRow = in.nextInt();
         System.out.print("Input end column: ");
-        int end_column = in.nextInt();
-        end(map, end_row, end_column);
-        start(map, queue, start_row, start_column);
+        int endColumn = in.nextInt();
+        end(map, endRow, endColumn);
+        start(map, queue, startRow, startColumn);
 
         while (queue.size() > 0) {
             step(map, queue, queue.get(0) / 1000, queue.get(0) % 1000);
             queue.remove(0);
         }
-        int present_step = map[end_row][end_column];
-        System.out.println("Shortest way in " + present_step + " steps: ");
-        queue.add(end_row * 1000 + end_column);
+        int presentStep = map[endRow][endColumn];
+        System.out.println("Shortest way in " + presentStep + " steps: ");
+        queue.add(endRow * 1000 + endColumn);
 
         while (queue.size() > 0) {
-            back_step(map, queue, queue.get(0) / 1000, queue.get(0) % 1000, present_step);
-            present_step -= 1;
+            backStep(map, queue, queue.get(0) / 1000, queue.get(0) % 1000, presentStep);
+            presentStep -= 1;
             queue.remove(0);
         }
-        end(map, end_row, end_column);
-        start(map, queue, start_row, start_column);
+        end(map, endRow, endColumn);
+        start(map, queue, startRow, startColumn);
         pprint(map);
     }
 }
